@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #c4c4c4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .blog-container {
+      max-width: 800px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #8c0023;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .post {
+      border-bottom: 1px solid #ccc;
+      padding: 20px 0;
+    }
+
+    .post:last-child {
+      border-bottom: none;
+    }
+
+    .post h3 {
+      color: #333;
+      margin: 0 0 10px;
+    }
+
+    .post p {
+      color: #555;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background-color: #8c0023;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a8002e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blog-container">
+    <h2>Publicações do Blog</h2>
+
+    <!-- Aqui os posts vão ser inseridos dinamicamente -->
+    <div id="posts"></div>
+
+    <button onclick="location.href='escrever.html'">Escrever Nova Publicação</button>
+  </div>
+
+  <script>
+    async function carregarPosts() {
+      try {
+        const resposta = await fetch('https://testebackout-production.up.railway.app/posts');  // Ajuste para sua rota real
+        const posts = await resposta.json();
+
+        const postsContainer = document.getElementById('posts');
+        postsContainer.innerHTML = '';
+
+        posts.forEach(post => {
+          const div = document.createElement('div');
+          div.className = 'post';
+
+          const titulo = document.createElement('h3');
+          titulo.textContent = post.titulo;
+
+          const conteudo = document.createElement('p');
+          conteudo.textContent = post.conteudo;
+
+          div.appendChild(titulo);
+          div.appendChild(conteudo);
+
+          postsContainer.appendChild(div);
+        });
+      } catch (erro) {
+        console.error('Erro ao carregar posts:', erro);
+      }
+    }
+
+    // Chama a função quando a página carregar
+    document.addEventListener('DOMContentLoaded', carregarPosts);
+  </script>
+
+</body>
+</html>

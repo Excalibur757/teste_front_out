@@ -67,7 +67,9 @@
       <button type="submit">Entrar</button>
       <div id="error" class="error"></div>
     </form>
+    <button onclick="location.href='blog.html'">Ir para Blog</button>
   </div>
+
 
   <script>
     const form = document.getElementById('loginForm');
@@ -91,7 +93,7 @@
         const data = await res.json();
 
         if (res.ok && data.success) {
-          window.location.href = 'email.html'; // ✅ redireciona se login OK
+          window.location.href = 'menu.html'; // ✅ redireciona se login OK
         } else {
           throw new Error(data.message);
         }
